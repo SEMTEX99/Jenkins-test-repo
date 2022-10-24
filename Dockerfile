@@ -1,4 +1,7 @@
-FROM openjdk:8
-EXPOSE 8080
-ADD target/devopstest.jar devopstest.jar
+FROM maven:3.6.3-jdk-8
+EXPOSE 5000
+RUN mkdir /app
+COPY target/devops-integration.jar /app
+COPY pom.xml /app
+WORKDIR /app
 ENTRYPOINT ["java","-jar","/devops-integration.jar"]
