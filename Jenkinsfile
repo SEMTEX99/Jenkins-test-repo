@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    tools{
-        maven 'maven_3_6_3'
+    environment {
+        PATH = "/usr/share/maven:$PATH"
     }
     stages{
         stage('Build Maven'){
