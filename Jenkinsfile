@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Build docker image'){
             steps{
-                sh 'docker build -t devopstest/devops-integration .'
+                sh 'docker build -t sinisateletabis/devopstest .'
             
             }
         }
