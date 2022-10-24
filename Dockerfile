@@ -4,4 +4,4 @@ RUN mkdir /app
 COPY target/devops-integration.jar /app
 COPY pom.xml /app
 WORKDIR /app
-ENTRYPOINT ["java","-jar","/devops-integration.jar"]
+ENTRYPOINT ["java","-jar","/app/devops-integration.jar"]
