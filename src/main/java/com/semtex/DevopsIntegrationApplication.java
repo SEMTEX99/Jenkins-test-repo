@@ -11,7 +11,7 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message(){
-		return "welcome to jenkins totalno ludilo, dobicete tuborg na mozgu";
+		return "welcome to jenkins";
 	}
 
 	public static void main(String[] args) {

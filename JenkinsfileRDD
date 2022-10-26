@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    environment {
+        PATH = "/usr/share/maven:$PATH"
+    }
+    stages{
+        stage('connect to ssh') {
+            steps {
+                 script {
+                     sshagent(credentials : ['ssh2dockermaster']) {
+                        sh "echo pwd"
+                        sh 'ssh -t -t adminuser@20.229.239.213 -o StrictHostKeyChecking=no'
+                        sh "echo pwd"
+                        sh 'sudo -i -u root'
+                    }
+                }
+            }
+        }
+        stage('deploy docker image') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u sinisateletabis -p ${dockerhubpwd}'
+                    } 
+                    sh 'docker stack deploy -c docker-compose.yml myapp'
+                }
+            }
+        }    
+    }
+
+}
