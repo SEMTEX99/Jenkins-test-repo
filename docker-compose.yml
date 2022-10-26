@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   devopstest:
-    image: getting-started
+    image: devopstest
     ports:
       - "5000:5000"
     deploy:
