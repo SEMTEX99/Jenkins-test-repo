@@ -8,10 +8,9 @@ pipeline {
             steps {
                  script {
                      sshagent(credentials : ['ssh2dockermaster']) {
-                        sh "echo pwd"
+                        sh "cecho 'onnecting'"
                         sh 'ssh -t adminuser@20.229.239.213 -o StrictHostKeyChecking=no'
-                        sh "echo pwd"
-                        sh "echo 'test da li radi'"
+                        sh "echo 'connected'"
                      }
                     if(fileExists('docker-compose')) {
                         sh "echo 'skipped docker-compose already exsists'"
