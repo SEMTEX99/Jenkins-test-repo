@@ -1,3 +1,4 @@
+/* groovylint-disable DuplicateStringLiteral, GStringExpressionWithinString, NestedBlockDepth */
 pipeline {
     agent any
     environment {
@@ -6,8 +7,8 @@ pipeline {
     stages{
         stage('connect to ssh') {
             steps {
-                 script {
-                     sshagent(credentials : ['ssh2dockermaster']) {
+                script {
+                    sshagent(credentials : ['ssh2dockermaster']) {
                         sh 'ssh -t adminuser@20.229.239.213 -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/id_rsa'
                         sh 'ssh -t adminuser@20.229.239.213 echo "testing connection"'
                         sh 'ssh -t adminuser@20.229.239.213 ip address show'
@@ -19,29 +20,29 @@ pipeline {
                 steps {
                     script{
                         sshagent(credentials : ['ssh2dockermaster']) {
-                        if(fileExists('docker-compose.yml')) {
+                        if (fileExists('docker-compose.yml')) {
                             sh 'ssh -t adminuser@20.229.239.213 echo "skipped docker-compose already exsists"'
                             sh 'ssh -t adminuser@20.229.239.213 rm -f -r docker-compose.yml'
                             sh 'ssh -t adminuser@20.229.239.213 wget https://raw.githubusercontent.com/SEMTEX99/Jenkins-test-repo/main/docker-compose.yml'
-                            }
+                        }
                             else {
                             sh 'ssh -t adminuser@20.229.239.213 wget https://raw.githubusercontent.com/SEMTEX99/Jenkins-test-repo/main/docker-compose.yml'
                             }
-                            }
                         }
                     }
-                }        
+                }
+            }
             stage('deploy docker image') {
                 steps {
                     script {
                         sshagent(credentials : ['ssh2dockermaster']) {
                         withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-                        sh 'docker login -u sinisateletabis -p ${dockerhubpwd}'
+                            sh 'docker login -u sinisateletabis -p ${dockerhubpwd}'
                         } 
                         sh 'ssh -t adminuser@20.229.239.213 docker stack deploy --compose-file docker-compose.yml myapp'
                         }
                     }
                 }
             }
-        }
     }
+}
