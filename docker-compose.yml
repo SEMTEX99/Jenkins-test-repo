@@ -4,7 +4,7 @@ services:
   devopstest:
     image: devopstest
     ports:
-      - "5000:5000"
+      - "8080:8080"
     deploy:
       replicas: 1
       update_config:
