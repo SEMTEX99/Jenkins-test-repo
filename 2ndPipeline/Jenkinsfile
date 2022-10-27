@@ -19,16 +19,12 @@ pipeline {
                 steps {
                     script{
                         sshagent(credentials : ['ssh2dockermaster']) {
-                        if(fileExists('docker-compose')) {
-                            sh 'ssh -t adminuser@20.229.239.213 ip address show'
+                        if(fileExists('docker-compose.yml')) {
                             sh 'ssh -t adminuser@20.229.239.213 echo "skipped docker-compose already exsists"'
-                            sh 'ssh -t adminuser@20.229.239.213 cd docker-compose'
                             sh 'ssh -t adminuser@20.229.239.213 rm -f -r docker-compose.yml'
                             sh 'ssh -t adminuser@20.229.239.213 wget https://raw.githubusercontent.com/SEMTEX99/Jenkins-test-repo/main/docker-compose.yml'
                             }
                             else {
-                            sh 'ssh -t adminuser@20.229.239.213 mkdir docker-compose'
-                            sh 'ssh -t adminuser@20.229.239.213 cd docker-compose'
                             sh 'ssh -t adminuser@20.229.239.213 wget https://raw.githubusercontent.com/SEMTEX99/Jenkins-test-repo/main/docker-compose.yml'
                             }
                             }
