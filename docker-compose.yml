@@ -2,9 +2,10 @@ version: '3.7'
 
 services:
   devopstest:
-    image: devopstest
+    image: sinisateletabis/devopstest
+    build: .
     ports:
-      - "8080:8080"
+      - "8000:8000"
     deploy:
       replicas: 1
       update_config:
